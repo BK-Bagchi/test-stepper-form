@@ -19,7 +19,6 @@ const useStyles = makeStyles((theme) => ({
     },
     instructions: {
         margin: '0 auto',
-        background: 'red'
     },
 }));
 
