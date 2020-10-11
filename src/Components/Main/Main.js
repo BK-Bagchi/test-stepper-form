@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './All.css';
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -67,12 +68,12 @@ const Main = () => {
             </Stepper>
             <div>
                 {activeStep === steps.length ? (
-                    <div>
-                        <Typography className={classes.instructions}>All steps completed</Typography>
+                    <div className="d-flex flex-column align-items-center">
+                        <Typography className={`text-center ${classes.instructions}`}>All steps completed</Typography>
                         <Button onClick={handleReset}>Reset</Button>
                     </div>
                 ) : (
-                        <div>
+                        <div className="d-flex flex-column align-items-center">
                             <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
                             <div>
                                 <Button

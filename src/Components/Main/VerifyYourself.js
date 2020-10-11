@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './All.css'
 
 const VerifyYourself = () => {
     const [formInfo, setFormInfo] = useState({})

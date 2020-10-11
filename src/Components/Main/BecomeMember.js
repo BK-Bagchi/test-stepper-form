@@ -2,9 +2,11 @@ import React from 'react';
 
 const BecomeMember = () => {
     return (
-        <div>
-            now i am a member
-        </div>
+        <section className="d-flex flex-column align-items-center">
+            <h1>Congratulations🎇✨🎈</h1>
+            <h3>Dipto</h3>
+            <p>You are now a member of <strong>Pipesort Technologies LLP</strong></p>
+        </section>
     );
 };
 
