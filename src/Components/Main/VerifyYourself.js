@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { UserInfo } from './Main';
 
 const VerifyYourself = () => {
+    const setUserInfo = useContext(UserInfo).info[1]
+
     const [formInfo, setFormInfo] = useState({})
     const [errorMessage, setErrorMessage] = useState({})
+    setUserInfo(formInfo)
 
     const crossCheck = (valueKey, valueValue, errKey, errValue) => {
         setFormInfo({ ...formInfo, [valueKey]: valueValue })

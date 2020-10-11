@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { UserInfo } from './Main';
 
 const DetailInfo = () => {
+    const [userInfo, setUserInfo] = useContext(UserInfo).info
+
     const [formInfo, setFormInfo] = useState({})
     const [errorMessage, setErrorMessage] = useState({})
+    setUserInfo(formInfo)
 
     const crossCheck = (valueKey, valueValue, errKey, errValue) => {
         setFormInfo({ ...formInfo, [valueKey]: valueValue })
@@ -26,7 +30,7 @@ const DetailInfo = () => {
     return (
         <section className="detail d-flex justify-content-center">
             <form className="d-flex flex-column">
-                <input type="text" value="Dipto" readOnly onBlur={getFormInfo} />
+                <input type="text" value={userInfo.name} readOnly onBlur={getFormInfo} />
                 <span className="error"></span>
 
                 <input name="age" type="number" placeholder="Exact Age" onBlur={getFormInfo} />

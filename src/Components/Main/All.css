@@ -4,3 +4,16 @@
 .error::before{
     content:'*';
 }
+input, select{
+    width:300px;
+    height: 50px;
+    padding: 0 5px;
+    border: none;
+    border-radius: 7px;
+    outline: none;
+    box-shadow: 3px 3px 15px lightgrey;
+    transition: 0.5s;
+}
+input:focus, select:focus{
+    transform:scale(1.05);
+}

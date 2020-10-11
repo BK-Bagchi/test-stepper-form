@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { createContext, useState } from 'react';
 import './All.css';
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import VerifyYourself from './VerifyYourself';
 import DetailInfo from './DetailInfo';
 import BecomeMember from './BecomeMember';
+import Payment from './Payment';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -24,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const getSteps = () => {
-    return ['Verify Yourself', 'You Detail Info', 'Become a Member'];
+    return ['Verify Yourself', 'You Detail Info', 'Payment Details', 'Become a Member'];
 }
 
 const getStepContent = (stepIndex) => {
@@ -34,13 +35,18 @@ const getStepContent = (stepIndex) => {
         case 1:
             return <DetailInfo />
         case 2:
+            return <Payment />
+        case 3:
             return <BecomeMember />
         default:
             return 'Unknown stepIndex';
     }
 }
+export const UserInfo = React.createContext()
 
 const Main = () => {
+    const [userInfo, setUserInfo] = useState({})
+
     const classes = useStyles();
     const [activeStep, setActiveStep] = useState(0);
     const steps = getSteps();
@@ -49,48 +55,39 @@ const Main = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
     };
 
-    const handleBack = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep - 1);
-    };
-
     const handleReset = () => {
         setActiveStep(0);
     };
 
     return (
-        <div className={classes.root}>
-            <Stepper activeStep={activeStep} alternativeLabel>
-                {steps.map((label) => (
-                    <Step key={label}>
-                        <StepLabel>{label}</StepLabel>
-                    </Step>
-                ))}
-            </Stepper>
-            <div>
-                {activeStep === steps.length ? (
-                    <div className="d-flex flex-column align-items-center">
-                        <Typography className={`text-center ${classes.instructions}`}>All steps completed</Typography>
-                        <Button onClick={handleReset}>Reset</Button>
-                    </div>
-                ) : (
+        <UserInfo.Provider value={{ info: [userInfo, setUserInfo] }}>
+            <div className={classes.root}>
+                <Stepper activeStep={activeStep} alternativeLabel>
+                    {steps.map((label) => (
+                        <Step key={label}>
+                            <StepLabel>{label}</StepLabel>
+                        </Step>
+                    ))}
+                </Stepper>
+                <div>
+                    {activeStep === steps.length ? (
                         <div className="d-flex flex-column align-items-center">
-                            <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
-                            <div>
-                                <Button
-                                    disabled={activeStep === 0}
-                                    onClick={handleBack}
-                                    className={classes.backButton}
-                                >
-                                    Back
-                                </Button>
-                                <Button variant="contained" color="primary" onClick={handleNext}>
-                                    {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                                </Button>
-                            </div>
+                            <Typography className={`text-center ${classes.instructions}`}>All steps completed</Typography>
+                            <Button onClick={handleReset}>Reset</Button>
                         </div>
-                    )}
+                    ) : (
+                            <div className="d-flex flex-column align-items-center">
+                                <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
+                                <div>
+                                    <Button variant="contained" color="primary" onClick={handleNext}>
+                                        {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                                    </Button>
+                                </div>
+                            </div>
+                        )}
+                </div>
             </div>
-        </div>
+        </UserInfo.Provider>
     );
 }
 export default Main;
