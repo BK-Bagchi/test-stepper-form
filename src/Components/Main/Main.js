@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { useState } from 'react';
 import './All.css';
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
@@ -10,6 +10,7 @@ import VerifyYourself from './VerifyYourself';
 import DetailInfo from './DetailInfo';
 import BecomeMember from './BecomeMember';
 import Payment from './Payment';
+import NavBar from './NavBar';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -61,8 +62,9 @@ const Main = () => {
 
     return (
         <UserInfo.Provider value={{ info: [userInfo, setUserInfo] }}>
+            <NavBar />
             <div className={classes.root}>
-                <Stepper activeStep={activeStep} alternativeLabel>
+                <Stepper style={{ background: 'transparent' }} activeStep={activeStep} alternativeLabel>
                     {steps.map((label) => (
                         <Step key={label}>
                             <StepLabel>{label}</StepLabel>
@@ -87,6 +89,7 @@ const Main = () => {
                         )}
                 </div>
             </div>
+            <div className="background"></div>
         </UserInfo.Provider>
     );
 }
